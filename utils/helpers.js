@@ -7,6 +7,11 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
+export function getDailyReminderValue() {
+  return {
+    today: "👋 Don't forget to log your data today!",
+  };
+}
 export function isBetween(num, x, y) {
   if (num >= x && num <= y) {
     return true;
