@@ -13,7 +13,7 @@ import {
 } from "../utils/helpers";
 import UdaciSlider from "./UdaciSlider";
 import UdaciSteppers from "./UdaciSteppers";
-import DateHeader from "./DateHeader";
+// import DateHeader from "./DateHeader";
 import TextButton from "./TextButton";
 import { Ionicons } from "@expo/vector-icons";
 import { submitEntry, removeEntry } from "../utils/api";
@@ -46,7 +46,7 @@ class AddEntry extends Component {
   };
   submit = () => {
     const key = timeToString();
-    const entry = this.state;
+    const entry = [this.state];
 
     this.props.dispatch(
       addEntry({
@@ -121,7 +121,7 @@ class AddEntry extends Component {
 
     return (
       <View style={styles.container}>
-        <DateHeader date={new Date().toLocaleDateString()} />
+        {/* <DateHeader date={new Date().toLocaleDateString()} /> */}
         {Object.keys(metaInfo).map((key) => {
           const { getIcon, type, ...rest } = metaInfo[key];
           const value = this.state[key];
