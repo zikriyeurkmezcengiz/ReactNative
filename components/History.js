@@ -1,16 +1,10 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
-import { receiveEntries, addEntry } from "../actions";
-import { timeToString, getDailyReminderValue } from "../utils/helpers";
+import { addEntry, receiveEntries } from "../actions";
+import { getDailyReminderValue, timeToString } from "../utils/helpers";
 import { fetchCalendarResults } from "../utils/api";
-import { Agenda as UdaciFitnessCalendar } from "react-native-calendars";
+import UdaciFitnessCalendar from "udacifitness-calendar";
 import { white } from "../utils/colors";
 import DateHeader from "./DateHeader";
 import MetricCard from "./MetricCard";
@@ -20,8 +14,13 @@ class History extends Component {
   state = {
     ready: false,
   };
+
   componentDidMount() {
     const { dispatch } = this.props;
+
+    this.setState(() => ({
+      ready: false,
+    }));
 
     fetchCalendarResults()
       .then((entries) => dispatch(receiveEntries(entries)))
@@ -55,6 +54,7 @@ class History extends Component {
       )}
     </View>
   );
+
   renderEmptyDate(formattedDate) {
     return (
       <View style={styles.item}>
@@ -68,16 +68,16 @@ class History extends Component {
 
   render() {
     const { entries } = this.props;
+    const { ready } = this.state;
 
-    if (!!this.state.ready && this.state.ready === false) {
-      return <AppLoading />;
-    }
-    return (
+    return ready ? (
       <UdaciFitnessCalendar
         items={entries}
         renderItem={this.renderItem}
         renderEmptyDate={this.renderEmptyDate}
       />
+    ) : (
+      <AppLoading />
     );
   }
 }

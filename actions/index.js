@@ -1,16 +1,18 @@
-export const RECEIVE_ENTRIES = "RECEIVE_ENTRIES";
-export const ADD_ENTRY = "ADD_ENTRY";
+export const APPLICATION_ACTION_TYPES = {
+  RECEIVE_ENTRIES: "RECEIVE_ENTRIES",
+  ADD_ENTRY: "ADD_ENTRY",
+};
 
 export function receiveEntries(entries) {
   return {
-    type: RECEIVE_ENTRIES,
+    type: APPLICATION_ACTION_TYPES.RECEIVE_ENTRIES,
     entries,
   };
 }
 
 export function addEntry(entry) {
   return {
-    type: ADD_ENTRY,
+    type: APPLICATION_ACTION_TYPES.ADD_ENTRY,
     entry,
   };
 }

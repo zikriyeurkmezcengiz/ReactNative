@@ -1,22 +1,9 @@
-import React, { Component } from "react";
-import {
-  Platform,
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-} from "react-native";
-import { FontAwesome, Entypo } from "@expo/vector-icons";
-import { purple, gray, white } from "../utils/colors";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { gray, purple, white } from "../utils/colors";
 
-export default function UdaciSteppers({
-  max,
-  unit,
-  step,
-  value,
-  onIncrement,
-  onDecrement,
-}) {
+function UdaciSteppers({ unit, value, onIncrement, onDecrement }) {
   return (
     <View style={[styles.row, { justifyContent: "space-between" }]}>
       {Platform.OS === "ios" ? (
@@ -33,11 +20,7 @@ export default function UdaciSteppers({
           <TouchableOpacity
             style={[
               styles.iosBtn,
-              {
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                borderLeftWidth: 0,
-              },
+              { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
             ]}
             onPress={onIncrement}
           >
@@ -46,10 +29,22 @@ export default function UdaciSteppers({
         </View>
       ) : (
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={styles.androidBtn} onPress={onDecrement}>
+          <TouchableOpacity
+            style={[
+              styles.androidBtn,
+              { borderTopRightRadius: 0, borderBottomRightRadius: 0 },
+            ]}
+            onPress={onDecrement}
+          >
             <FontAwesome name="minus" size={30} color={white} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.androidBtn} onPress={onIncrement}>
+          <TouchableOpacity
+            style={[
+              styles.androidBtn,
+              { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 },
+            ]}
+            onPress={onIncrement}
+          >
             <FontAwesome name="plus" size={30} color={white} />
           </TouchableOpacity>
         </View>
@@ -61,17 +56,12 @@ export default function UdaciSteppers({
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-  },
-  androidBtn: {
-    margin: 5,
-    backgroundColor: purple,
-    padding: 10,
-    borderRadius: 2,
   },
   iosBtn: {
     backgroundColor: white,
@@ -82,9 +72,17 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
     paddingRight: 25,
   },
+  androidBtn: {
+    margin: 5,
+    backgroundColor: purple,
+    padding: 10,
+    borderRadius: 2,
+  },
   metricCounter: {
     width: 85,
     justifyContent: "center",
     alignItems: "center",
   },
 });
+
+export default UdaciSteppers;

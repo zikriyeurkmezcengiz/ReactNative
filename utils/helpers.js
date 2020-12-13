@@ -1,11 +1,13 @@
+// utils/helpers.js
+
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { red, orange, blue, lightPurp, pink, white } from "./colors";
+import { StyleSheet, View } from "react-native";
 import {
   FontAwesome,
-  MaterialIcons,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
+import { blue, lightPurp, orange, pink, red, white } from "./colors";
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -19,18 +21,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export function getDailyReminderValue() {
-  return [
-    {
-      today: "👋 Don't forget to log your data today!",
-    },
-  ];
-}
 export function isBetween(num, x, y) {
   if (num >= x && num <= y) {
     return true;
   }
-
   return false;
 }
 
@@ -95,7 +89,7 @@ export function getMetricMetaInfo(metric) {
       getIcon() {
         return (
           <View style={[styles.iconContainer, { backgroundColor: orange }]}>
-            <MaterialCommunityIcons name="bike" color={white} size={32} />
+            <MaterialCommunityIcons name="bike" color={white} size={35} />
           </View>
         );
       },
@@ -122,8 +116,8 @@ export function getMetricMetaInfo(metric) {
       type: "slider",
       getIcon() {
         return (
-          <View style={[styles.iconContainer, { backgroundColor: lightPurp }]}>
-            <FontAwesome name="bed" color={white} size={30} />
+          <View style={[styles.iconContainer, { backgroundColor: pink }]}>
+            <FontAwesome name="bed" color={white} size={35} />
           </View>
         );
       },
@@ -136,13 +130,18 @@ export function getMetricMetaInfo(metric) {
       type: "slider",
       getIcon() {
         return (
-          <View style={[styles.iconContainer, { backgroundColor: pink }]}>
+          <View style={[styles.iconContainer, { backgroundColor: lightPurp }]}>
             <MaterialCommunityIcons name="food" color={white} size={35} />
           </View>
         );
       },
     },
   };
+  return metric ? info[metric] : info;
+}
 
-  return typeof metric === "undefined" ? info : info[metric];
+export function getDailyReminderValue() {
+  return {
+    today: "👋 Don't forget to log your data today!",
+  };
 }
