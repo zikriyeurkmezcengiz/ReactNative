@@ -108,7 +108,7 @@ class AddEntry extends Component {
       return (
         <View style={styles.center}>
           <Ionicons
-            name={Platform.OS == "ios" ? "ios-happy-outline" : "md-happy"}
+            name={Platform.OS == "ios" ? "ios-happy" : "md-happy"}
             size={100}
           />
           <Text>You already logged your information for today.</Text>
@@ -196,6 +196,8 @@ const styles = StyleSheet.create({
 });
 function mapStateToProps(state) {
   const key = timeToString();
+  console.log(state[key]);
+  console.log(key);
   if (typeof state !== "undefined") {
     return {
       alreadyLogged: state[key] && typeof state[key].today === "undefined",
