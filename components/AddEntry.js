@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification,
   getMetricMetaInfo,
   timeToString,
 } from "../utils/helpers";
@@ -88,7 +90,7 @@ class AddEntry extends Component {
 
     submitEntry({ entry, key });
 
-    // todo: Clear local notification
+    clearLocalNotification().then(setLocalNotification);
   };
 
   reset = () => {
