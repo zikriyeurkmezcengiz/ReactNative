@@ -198,7 +198,7 @@ function mapStateToProps(state) {
   const key = timeToString();
   if (typeof state !== "undefined") {
     return {
-      alreadyLogged: state[key] && typeof state[key].today === "undefined",
+      alreadyLogged: false, //state[key] && typeof state[key].today === "undefined",
     };
   }
   return {};

@@ -6,12 +6,15 @@ import { Provider } from "react-redux";
 import reducer from "./reducers";
 import History from "./components/History";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { purple, white } from "./utils/colors";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import EntryDetail from "./components/EntryDetail";
 
+//StatusBar
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -19,6 +22,8 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
     </View>
   );
 }
+
+//Tab Nav
 const RouteConfigs = {
   History: {
     name: "History",
@@ -66,17 +71,53 @@ const Tab =
     ? createBottomTabNavigator()
     : createMaterialTopTabNavigator();
 
+const TabNav = () => (
+  <Tab.Navigator {...TabNavigatorConfig}>
+    <Tab.Screen {...RouteConfigs["History"]} />
+    <Tab.Screen {...RouteConfigs["AddEntry"]} />
+  </Tab.Navigator>
+);
+
+// Config for StackNav
+const StackNavigatorConfig = {
+  headerMode: "screen",
+};
+const StackConfig = {
+  TabNav: {
+    name: "Home",
+    component: TabNav,
+    options: { headerShown: false },
+  },
+  EntryDetail: {
+    name: "EntryDetail",
+    component: EntryDetail,
+    options: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+      title: "Entry Detail",
+    },
+  },
+};
+
+const Stack = createStackNavigator();
+const MainNav = () => (
+  <NavigationContainer>
+    <Stack.Navigator {...StackNavigatorConfig}>
+      <Stack.Screen {...StackConfig["TabNav"]} />
+      <Stack.Screen {...StackConfig["EntryDetail"]} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
+
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
         <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-        <NavigationContainer>
-          <Tab.Navigator {...TabNavigatorConfig}>
-            <Tab.Screen {...RouteConfigs["History"]} />
-            <Tab.Screen {...RouteConfigs["AddEntry"]} />
-          </Tab.Navigator>
-        </NavigationContainer>
+
+        <MainNav />
       </Provider>
     );
   }
