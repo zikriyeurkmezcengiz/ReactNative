@@ -196,8 +196,6 @@ const styles = StyleSheet.create({
 });
 function mapStateToProps(state) {
   const key = timeToString();
-  console.log(state[key]);
-  console.log(key);
   if (typeof state !== "undefined") {
     return {
       alreadyLogged: state[key] && typeof state[key].today === "undefined",
